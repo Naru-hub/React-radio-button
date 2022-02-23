@@ -1,8 +1,29 @@
 import { useState } from "react";
 import "./styles.css";
 
+const values = [
+  { id: 1, item: "赤" },
+  { id: 2, item: "青" },
+  { id: 3, item: "黄" }
+];
+
+const RadioBtnItems = ({ onChange, checked }) =>
+  values.map((value) => {
+    return (
+      <label key={value.id}>
+        <input
+          type="radio"
+          value={value.item}
+          onChange={onChange}
+          checked={checked === value.item}
+        />
+        {value.item}
+      </label>
+    );
+  });
+
 const InputRadio = () => {
-  const [checkedValue, setCheckedValue] = useState("赤");
+  const [checkedValue, setCheckedValue] = useState(values[0]["item"]);
   const handleChange = (e) => setCheckedValue(e.target.value);
 
   return (
@@ -10,33 +31,7 @@ const InputRadio = () => {
       <p>
         現在選択されている値 : <b>{checkedValue}</b>
       </p>
-      <label>
-        <input
-          type="radio"
-          value="赤"
-          onChange={handleChange}
-          checked={checkedValue === "赤"}
-        />
-        赤
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="青"
-          onChange={handleChange}
-          checked={checkedValue === "青"}
-        />
-        青
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="黄"
-          onChange={handleChange}
-          checked={checkedValue === "黄"}
-        />
-        黄
-      </label>
+      <RadioBtnItems onChange={handleChange} checked={checkedValue} />
     </div>
   );
 };
